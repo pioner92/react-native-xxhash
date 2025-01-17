@@ -12,11 +12,15 @@ npm install react-native-xxhash
 
 
 ```js
-import { multiply } from 'react-native-xxhash';
+import { hash128, hash64 } from 'react-native-xxhash';
 
 // ...
 
-const result = await multiply(3, 7);
+//This function provides a fast and deterministic 128-bit hash for a given string input.
+const result_hash_128_bits = hash128("hello world");
+
+//This function provides a fast and deterministic 64-bit hash for a given string input.
+const result_hash_64_bits = hash64("hello world");
 ```
 
 

@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { multiply } from 'react-native-xxhash';
+import { StyleSheet, Text, View } from 'react-native';
+import { hash64,hash128 } from 'react-native-xxhash';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
 
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const result = hash128("hello world");
 
   return (
     <View style={styles.container}>

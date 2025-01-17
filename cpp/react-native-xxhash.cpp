@@ -21,7 +21,7 @@ void xxhash::install(jsi::Runtime* rt_ptr) {
       });
 
   jsi::Function hash64 = jsi::Function::createFromHostFunction(
-      runtime, jsi::PropNameID::forAscii(runtime, "xxhash128"), 1,
+      runtime, jsi::PropNameID::forAscii(runtime, "hash64"), 1,
       [](jsi::Runtime& rt, const jsi::Value& thisVal, const jsi::Value* args,
          size_t count) {
         const jsi::Value& arg = args[0];
@@ -37,7 +37,7 @@ void xxhash::install(jsi::Runtime* rt_ptr) {
         return jsi::String::createFromUtf8(rt, ss.str());
       });
 
-  runtime.global().setProperty(runtime, "xxhash128", std::move(hash128));
+  runtime.global().setProperty(runtime, "__xxhash128", std::move(hash128));
 
-  runtime.global().setProperty(runtime, "xxhash64", std::move(hash64));
+  runtime.global().setProperty(runtime, "__xxhash64", std::move(hash64));
 }
