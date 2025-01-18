@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationMap": true,
     "paths": {
-      "react-native-xxhash": ["./src/index"]
+      "react-native-xxhash": [
+        "./src/index"
+      ]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
@@ -26,5 +33,12 @@
     "strict": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
-  }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
+  ]
 }
