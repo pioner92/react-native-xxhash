@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "react-native-fast-crypto": [
+      "react-native-xxhash": [
         "./src/index"
       ]
     },

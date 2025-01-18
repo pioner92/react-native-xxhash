@@ -66,6 +66,8 @@
     "@semantic-release/release-notes-generator": "^14.0.3",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
+    "@types/react-native": "^0.65.5",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
     "commitlint": "^17.0.2",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",
@@ -77,8 +79,7 @@
     "react-native": "0.76.6",
     "react-native-builder-bob": "^0.35.2",
     "release-it": "^17.10.0",
-    "turbo": "^1.10.7",
-    "typescript": "^5.2.2"
+    "typescript": "5.0.4"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
