@@ -8,6 +8,10 @@ react-native-xxhash
 npm install react-native-xxhash
 ```
 
+```sh
+yarn add react-native-xxhash
+```
+
 ## Usage
 
 

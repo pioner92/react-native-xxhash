@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./lib",
-    "declaration": true,
-    "declarationMap": true,
+    "baseUrl": ".",
     "paths": {
-      "react-native-xxhash": [
+      "react-native-fast-crypto": [
         "./src/index"
       ]
     },
@@ -13,32 +10,22 @@
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",
+    "jsx": "react-native",
     "lib": [
-      "ESNext"
+      "esnext",
+      "DOM"
     ],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
     "noStrictGenericChecks": false,
-    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
-    "resolvePackageJsonImports": false,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext",
-    "verbatimModuleSyntax": true
-  },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/__tests__/*"
-  ]
+    "target": "esnext"
+  }
 }

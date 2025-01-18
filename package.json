@@ -1,22 +1,12 @@
 {
   "name": "react-native-xxhash",
   "version": "0.1.1",
-  "description": "react-native-xxhash",
-  "source": "./src/index.tsx",
+  "description": "Fast xxHash implementation for React Native",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./lib/typescript/index.d.ts",
-        "default": "./lib/module/index.js"
-      },
-      "require": {
-        "types": "./lib/typescript/index.d.ts",
-        "default": "./lib/commonjs/index.js"
-      }
-    }
-  },
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "./src/index",
   "files": [
     "src",
     "lib",
@@ -50,7 +40,8 @@
     "ios",
     "android",
     "xxhash",
-    "hash"
+    "hash",
+    "fast"
   ],
   "repository": {
     "type": "git",
@@ -164,23 +155,12 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      [
-        "commonjs",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "module",
-        {
-          "esm": true
-        }
-      ],
+      "commonjs",
+      "module",
       [
         "typescript",
         {
-          "project": "tsconfig.build.json",
-          "esm": true
+          "project": "tsconfig.build.json"
         }
       ]
     ]
