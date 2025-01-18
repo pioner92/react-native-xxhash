@@ -30,26 +30,19 @@ include_directories(
 )
 
 if (ReactAndroid_VERSION_MINOR GREATER_EQUAL 76)
-target_link_libraries(
-  react-native-xxhash
-  ReactAndroid::jsi
-  log
-  ReactAndroid::reactnative
-  fbjni::fbjni
-)
+  target_link_libraries(
+    react-native-xxhash
+    ReactAndroid::jsi
+    log
+    ReactAndroid::reactnative
+    fbjni::fbjni
+  )
 else()
-target_link_libraries(
-  react-native-xxhash
-  fbjni::fbjni
-  android
-  ReactAndroid::jsi
-  ReactAndroid::turbomodulejsijni
-)
-
-
-# target_link_libraries(react-native-xxhash
-#         ReactAndroid::jsi
-#         log
-#         ReactAndroid::reactnative
-#         fbjni::fbjni
-# )
+    target_link_libraries(
+            react-native-xxhash
+            ReactAndroid::jsi
+            log
+            ReactAndroid::reactnativejni
+            fbjni::fbjni
+    )
+endif()

@@ -71,6 +71,8 @@
     "@react-native-community/cli": "15.0.1",
     "@react-native/eslint-config": "^0.73.1",
     "@release-it/conventional-changelog": "^9.0.2",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
     "commitlint": "^17.0.2",
