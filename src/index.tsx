@@ -1,8 +1,20 @@
-
+import {NativeModules} from 'react-native'
 declare global {
   var __xxhash128: (input: string) => string;
   var __xxhash64: (input: string) => string;
 }
+
+
+let xxhashModule = globalThis.__xxhash128;
+
+if(!xxhashModule){
+  if(NativeModules.xxhash){
+    NativeModules.xxhash.install();
+    xxhashModule = globalThis.__xxhash128;
+    console.log('✅ xxhash initialized successfully')
+  }
+}
+
 
 /**
  * Hashes the input string using the xxhash128 algorithm.

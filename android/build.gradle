@@ -1,3 +1,7 @@
+import groovy.json.JsonSlurper
+import org.apache.tools.ant.filters.ReplaceTokens
+import java.nio.file.Paths
+
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
   def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["Xxhash_kotlinVersion"]
@@ -13,6 +17,24 @@ buildscript {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
+
+static def findNodeModules(baseDir) {
+  def basePath = baseDir.toPath().normalize()
+  // Node's module resolution algorithm searches up to the root directory,
+  // after which the base path will be null
+  while (basePath) {
+    def nodeModulesPath = Paths.get(basePath.toString(), "node_modules")
+    def reactNativePath = Paths.get(nodeModulesPath.toString(), "react-native")
+    if (nodeModulesPath.toFile().exists() && reactNativePath.toFile().exists()) {
+      return nodeModulesPath.toString()
+    }
+    basePath = basePath.getParent()
+  }
+  throw new GradleException("react-native-xxhash: Failed to find node_modules/ path!")
+}
+
+def nodeModules = findNodeModules(projectDir)
+logger.warn("react-native-xxhash: node_modules/ found at: ${nodeModules}")
 
 def reactNativeArchitectures() {
   def value = rootProject.getProperties().get("reactNativeArchitectures")
@@ -69,6 +91,8 @@ android {
       cmake {
         cppFlags "-O2 -frtti -fexceptions -Wall -fstack-protector-all"
         abiFilters (*reactNativeArchitectures())
+        arguments "-DANDROID_STL=c++_shared",
+                          "-DNODE_MODULES_DIR=${nodeModules}"
       }
     }
   }
@@ -83,6 +107,23 @@ android {
     release {
       minifyEnabled false
     }
+  }
+
+  buildFeatures {
+    buildConfig true
+    prefab true
+  }
+
+    packagingOptions {
+      excludes = [
+            "**/libjsi.so",
+             "**/libreactnativejni.so",
+            "**/libreact_nativemodule_core.so",
+            "**/libturbomodulejsijni.so",
+            "**/libc++_shared.so",
+            "**/libfbjni.so",
+            "**/libreactnative.so",
+      ]
   }
 
   lintOptions {

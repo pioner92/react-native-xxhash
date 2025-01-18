@@ -1,25 +1,41 @@
 package com.xxhash
 
+import android.util.Log
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.Promise
+import com.facebook.react.common.annotations.FrameworkAPI
 
-class XxhashModule(reactContext: ReactApplicationContext) :
-  ReactContextBaseJavaModule(reactContext) {
+class XxhashModule internal constructor(val context: ReactApplicationContext) :
+  ReactContextBaseJavaModule(context) {
+
+    companion object {
+    const val NAME = "xxhash"
+
+    init {
+          System.loadLibrary("react-native-xxhash")
+    }
+
+    @OptIn(FrameworkAPI::class)
+    @JvmStatic
+    external fun nativeInstall(jsiRuntimePointer: Long)
+    }
+
+  private val reactContext = context
 
   override fun getName(): String {
     return NAME
   }
+  
+  @OptIn(FrameworkAPI::class)
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun install():Boolean  {
+    Log.d("xxhash", "install() called")
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  fun multiply(a: Double, b: Double, promise: Promise) {
-    promise.resolve(a * b)
-  }
+    nativeInstall(
+      context.javaScriptContextHolder!!.get(),
+    )
 
-  companion object {
-    const val NAME = "Xxhash"
+    return true
   }
 }
