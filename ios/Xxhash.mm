@@ -6,7 +6,7 @@
 #import <jsi/jsi.h>
 
 @implementation Xxhash
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(xxhash)
 
 @synthesize bridge = _bridge;
 @synthesize methodQueue = _methodQueue;
@@ -15,20 +15,24 @@ RCT_EXPORT_MODULE()
   return YES;
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install){
+	NSLog(@"Installing JSI bindings for xxhash ...");
+	RCTBridge* bridge = [RCTBridge currentBridge];
+	RCTCxxBridge* cxxBridge = (RCTCxxBridge*)bridge;
 
-- (void)setBridge:(RCTBridge *)bridge {
-  _bridge = bridge;
+	if (cxxBridge == nil) {
+		return @false;
+	}
 
-  RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
-  if (!cxxBridge.runtime) {
-    return;
-  }
+	auto jsiRuntime = (jsi::Runtime*) cxxBridge.runtime;
+	if (jsiRuntime == nil) {
+		return @false;
+	}
 
-  auto jsiRuntime =  (jsi::Runtime*)cxxBridge.runtime;
+	xxhash::install(jsiRuntime);
 
-  xxhash::install(jsiRuntime);
+	return @true;
 }
-
 
 
 @end
