@@ -2,42 +2,26 @@
 #ifndef XXHASH_H
 #define XXHASH_H
 #include <jsi/jsi.h>
-#include "xxhash.h"
 #include <iomanip>
 #include <sstream>
+#include "xxhash.h"
 
 using namespace facebook;
 
 namespace xxhash {
-  enum class HashSize {
-    BITS_64,
-    BITS_128,
-  };
 
-  template <HashSize T>
-  inline void make_hash(const std::string_view str, std::stringstream& ss) noexcept;
+inline void make_hash_64(const std::string_view str, char result[17]) noexcept {
+  XXH64_hash_t hash = XXH3_64bits(str.data(), str.size());
+  std::snprintf(result, 17, "%016llx", hash);
+};
 
-  template <>
-  inline void make_hash<HashSize::BITS_64>(const std::string_view str,
-                                    std::stringstream& ss) noexcept {
-    XXH64_hash_t hash = XXH3_64bits(str.data(), str.size());
+inline void make_hash_128(const std::string_view str,
+                          char result[33]) noexcept {
+  XXH128_hash_t hash = XXH3_128bits(str.data(), str.size());
+  std::snprintf(result, 33, "%016llx%016llx", hash.high64, hash.low64);
+};
 
-    ss << std::hex << std::setfill('0') << std::setw(16) << hash;
-  };
-
-  template <>
-  inline void make_hash<HashSize::BITS_128>(const std::string_view str,
-                                     std::stringstream& ss) noexcept {
-    XXH128_hash_t hash = XXH3_128bits(str.data(), str.size());
-
-    ss << std::hex << std::setfill('0') << std::setw(16) << hash.high64
-    << std::setw(16) << hash.low64;
-  };
-
-  void install(jsi::Runtime* rt);
-}
-
-
-
+void install(jsi::Runtime* rt);
+}  // namespace xxhash
 
 #endif /* XXHASH_H */
