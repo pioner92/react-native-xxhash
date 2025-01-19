@@ -1,6 +1,6 @@
 {
   "name": "react-native-xxhash",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "💪 A high-performance React Native library for generating xxHash hashes using C++ and JSI",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
