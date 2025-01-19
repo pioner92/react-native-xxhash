@@ -1,6 +1,7 @@
 # react-native-xxhash
 
-A React Native library for hashing strings using the fast and deterministic xxHash algorithm. This library provides support for both 64-bit and 128-bit hashing.
+A React Native library for hashing strings using the fast and deterministic xxHash algorithm, written in C++ with JSI for high performance. This library provides support for both 64-bit and 128-bit hashing.
+
 
 ## Features
 
