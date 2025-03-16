@@ -1,66 +1,104 @@
-# 🚀 react-native-config-jsi
+# react-native-xxhash
 
-**Fast JSI-based React Native library to access `.env` variables natively with C++ performance.**
+A React Native library for hashing strings using the fast and deterministic xxHash algorithm, written in C++ with JSI for high performance. This library provides support for both 64-bit and 128-bit hashing.
 
----
 
-## 📦 Install
+## Features
+
+- **High Performance**: xxHash is one of the fastest non-cryptographic hash functions.
+- **Deterministic Hashing**: Ensures consistent results for the same input.
+- **128-bit and 64-bit Support**: Choose between 128-bit and 64-bit hash outputs based on your use case.
+- **Cross-Platform**: Supports both iOS and Android in React Native projects.
+
+## Installation
+
+To install the library, use either `npm` or `yarn`:
 
 ```sh
-npm install react-native-config-jsi # or yarn add react-native-config-jsi
+npm install react-native-xxhash
+```
+
+```sh
+yarn add react-native-xxhash
+```
+
+## iOS
+```sh
+pod install
 ```
 
 ---
 
-## 🔧 Quick Setup
+## Usage
 
-1. Create `.env` at project root:
-```env
-API_KEY=your_api_key
-APP_NAME=MyAwesomeApp
+Here’s how to use the `react-native-xxhash` library in your React Native project:
+
+### Import the Functions
+```javascript
+import { hash128, hash64 } from 'react-native-xxhash';
 ```
 
-2. **iOS:**
-```bash
-cd ios && pod install
-```
-Add to Xcode → Target → Build Phases → **+ New Run Script Phase**:
-```bash
-bash "${SRCROOT}/../node_modules/react-native-config-jsi/src/scripts/generate.sh"
+### Hash a String (128-bit)
+This function generates a fast and deterministic 128-bit hash for a given string input.
+
+```javascript
+const resultHash128 = hash128("hello world");
+console.log('128-bit hash:', resultHash128);
+// Output: A 128-bit hash string
 ```
 
-3. **Android:**
-Add to bottom of `android/app/build.gradle`:
-```gradle
-apply from: project(':react-native-config-jsi').projectDir.getPath() + "/dotenv.gradle"
+### Hash a String (64-bit)
+This function generates a fast and deterministic 64-bit hash for a given string input.
+
+```javascript
+const resultHash64 = hash64("hello world");
+console.log('64-bit hash:', resultHash64);
+// Output: A 64-bit hash string
+```
+
+### Example Usage in a Component
+```javascript
+import React, { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { hash128, hash64 } from 'react-native-xxhash';
+
+const App = () => {
+  useEffect(() => {
+    const hash128Result = hash128("react-native");
+    const hash64Result = hash64("react-native");
+
+    console.log("128-bit hash:", hash128Result);
+    console.log("64-bit hash:", hash64Result);
+  }, []);
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Check your console for hash results!</Text>
+    </View>
+  );
+};
+
+export default App;
 ```
 
 ---
 
-## 🚀 Usage
+## API Reference
 
-```js
-import { RNConfig } from "react-native-config-jsi";
+### `hash128(input: string): string`
+- **Description**: Generates a 128-bit hash for the given string input.
+- **Parameters**:
+  - `input` (string): The string to hash.
+- **Returns**: A 128-bit hash as a string.
 
-const apiKey = RNConfig.get("API_KEY");
-console.log("API_KEY:", apiKey);
-```
-
----
-
-## ⚡ Highlights
-
-- 🔥 Ultra-fast JSI native access
-- ⚙️ Built in C++
-- 🧩 Synchronous API
-- 🪶 No extra dependencies
+### `hash64(input: string): string`
+- **Description**: Generates a 64-bit hash for the given string input.
+- **Parameters**:
+  - `input` (string): The string to hash.
+- **Returns**: A 64-bit hash as a string.
 
 ---
 
-## 📜 License
+## License
 
-MIT
-
----
-
-🎉 **Enjoy using react-native-config-jsi!** 🚀
+`react-native-xxhash` is released under the MIT License. See the [LICENSE](LICENSE) file for details.
