@@ -2,13 +2,15 @@
 
 A React Native library for hashing strings using the fast and deterministic xxHash algorithm, written in C++ with JSI for high performance. This library provides support for both 64-bit and 128-bit hashing.
 
-
 ## Features
 
 - **High Performance**: xxHash is one of the fastest non-cryptographic hash functions.
 - **Deterministic Hashing**: Ensures consistent results for the same input.
 - **128-bit and 64-bit Support**: Choose between 128-bit and 64-bit hash outputs based on your use case.
 - **Cross-Platform**: Supports both iOS and Android in React Native projects.
+
+# Benchmarks (https://xxhash.com)
+<img width="772" height="712" alt="Screenshot 2025-10-23 at 09 48 25" src="https://github.com/user-attachments/assets/792c220b-54cc-45d7-8e62-e26757d11e85" />
 
 ## Installation
 
