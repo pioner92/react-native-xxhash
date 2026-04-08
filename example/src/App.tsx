@@ -1,12 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { hash128 } from 'react-native-xxhash';
+import { hash128, hash64 } from 'react-native-xxhash';
 
 export default function App() {
-  const result = hash128('hello world');
+  const res_128 = hash128('hello world');
+  const res_64 = hash64('hello world');
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ flex: 1, fontWeight:'bold' }}>xxhash 128:</Text>
+        <Text>{res_128}</Text>
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ flex: 1, fontWeight:'bold' }}>xxhash 64:</Text>
+        <Text>{res_64}</Text>
+      </View>
     </View>
   );
 }
@@ -14,7 +22,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: 20,
     justifyContent: 'center',
   },
 });
