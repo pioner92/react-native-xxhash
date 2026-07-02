@@ -1,17 +1,20 @@
-import {NativeModules} from 'react-native'
+import {NativeModules, TurboModuleRegistry} from 'react-native'
 declare global {
   var __xxhash128: (input: string) => string;
   var __xxhash64: (input: string) => string;
 }
 
 
-let xxhashModule = globalThis.__xxhash128;
+let xxhashModule = (globalThis as any).__xxhash128 as typeof globalThis.__xxhash128 | undefined;
 
 if(!xxhashModule){
-  if(NativeModules.xxhash){
-    NativeModules.xxhash.install();
-    xxhashModule = globalThis.__xxhash128;
-    console.log('✅ xxhash initialized successfully')
+  const XxhashModule: any = TurboModuleRegistry.get('xxhash') ?? NativeModules.xxhash;
+  if(XxhashModule){
+    XxhashModule.install?.();
+    xxhashModule = (globalThis as any).__xxhash128;
+    if(xxhashModule){
+      console.log('✅ xxhash initialized successfully')
+    }
   }
 }
 
@@ -43,7 +46,7 @@ if(!xxhashModule){
   }
 
   return globalThis.__xxhash128(input);
- }   
+ }
 
 /**
  * Hashes the input string using the xxhash64 algorithm.
@@ -73,4 +76,4 @@ if(!xxhashModule){
   }
 
   return globalThis.__xxhash64(input);
- }   
+ }
